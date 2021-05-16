@@ -17,6 +17,8 @@
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory).build/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
     <!-- Due to https://github.com/dotnet/aspnetcore/issues/25959 we need it relative -->
     <BaseIntermediateOutputPath>$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), $(BaseIntermediateOutputPath)))</BaseIntermediateOutputPath>
+    <!-- Suppress MSB3539, see https://github.com/dotnet/msbuild/issues/3497 -->
+    <EnableBaseIntermediateOutputPathMismatchWarning>false</EnableBaseIntermediateOutputPathMismatchWarning>
     <!-- Don't warn on API docs -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <!-- Error out on warnings when releasing -->
