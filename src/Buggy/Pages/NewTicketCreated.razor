@@ -1,0 +1,8 @@
+@page "/tickets/created"
+
+@inject TicketStateContainer State
+
+<h1>Success!</h1>
+
+Your report <b>@State.LastResponse.Title</b> was raised on GitHub at
+<a href="@State.LastResponse.TicketLink">@State.LastResponse.TicketLink</a>

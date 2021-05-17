@@ -29,6 +29,8 @@ namespace Buggy
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<TicketService>();
+            services.AddScoped<TicketStateContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

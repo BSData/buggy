@@ -1,2 +1,53 @@
 @page "/tickets/new"
+@inject TicketService TicketService
+@inject TicketStateContainer State
+@inject NavigationManager Nav
 
+<h1>Create a new issue</h1>
+
+<EditForm Model="@Model" OnValidSubmit="@SubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        <label>
+            Title:
+            <InputText @bind-Value="Model.Title" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Description:
+            <InputText @bind-Value="Model.Description" />
+        </label>
+    </p>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@if (State?.LastResponse?.Success == false)
+{
+    <p>
+        ❌ Something went wrong, the ticket couldn't be created.
+    </p>
+}
+
+@code
+{
+    private CreateTicketModel Model { get; } = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        State.LastResponse = null;
+    }
+
+    async Task SubmitAsync()
+    {
+        State.LastModel = Model;
+        var response = await TicketService.CreateAsync(Model);
+        State.LastResponse = response;
+        if (response.Success)
+        {
+            Nav.NavigateTo("/tickets/created");
+        }
+    }
+}
